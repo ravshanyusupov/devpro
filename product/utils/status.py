@@ -1,0 +1,11 @@
+unauthenticated = {"code": -1001, "message": "Unauthenticated"}
+user_not_found = {"code": -1002, "message": "User not found"}
+product_not_found = {"code": -1003, "message": "Product not found"}
+deleted = {"code": 1004}
+wishlist_deleted = {"code": 1104}
+old_password_incorrect = {"code": -1007, "message": "old password is incorrect"}
+password_successfully_updated = {"code": 1034, "message": "New password successfully updated"}
+wishlist_not_found = {"code": -1120, "message": "wishlist is not found"}
+new_password_too_simple = {"code": -1023, "message": "New password is too simple"}
+dont_match_both_password = {"code", -1010, "message", "New password must be different from the old password"}
+invalid_request_body = {"code": -1005, "message": "Invalid request body or username already exists or invalid correct phone number"}
