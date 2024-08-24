@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-p+0=-k1ik#8)-uclc!7w!$x9^u$ij-&g)l5(h%-xyyh=)8=lce
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'product',
 
     'rest_framework',
-    'drf_spectacular',
     'rest_framework_simplejwt.token_blacklist'
 ]
 

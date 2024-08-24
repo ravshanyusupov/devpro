@@ -7,7 +7,7 @@ from ..models import User
 from rest_framework.exceptions import ParseError
 from ..utils.response import response
 from ..utils.status import user_not_found, invalid_request_body, old_password_incorrect, new_password_too_simple, \
-    password_successfully_updated
+    password_successfully_updated, invalid_login_request
 from product.utils.validators.token_validator import validator
 from rest_framework_simplejwt.tokens import RefreshToken
 from ..utils.validators.password_validator import validate_password
@@ -15,7 +15,7 @@ from ..utils.validators.password_validator import validate_password
 
 class Register(APIView):
 
-    def post(self, request):
+    def post(self, request) -> Response:
         serializer = UserSerializer(data=request.data)
         error = response(request, data=invalid_request_body,
                          status=status.HTTP_400_BAD_REQUEST,
@@ -33,8 +33,15 @@ class Login(APIView):
     serializer_class = TokenSerializer
 
     def post(self, request: Request, *args, **kwargs) -> Response:
-        phone = request.data['phone']
-        password = request.data['password']
+        request_body = request.data
+        invalid_data = response(request,
+                                data=invalid_login_request,
+                                status=status.HTTP_400_BAD_REQUEST,
+                                message="error")
+        if not request_body or 'phone' not in request_body or 'password' not in request_body:
+            raise ParseError(detail=invalid_data)
+        phone = request_body['phone']
+        password = request_body['password']
         user = User.objects.filter(phone=phone).first()
         error = response(request, data=user_not_found,
                        status=status.HTTP_400_BAD_REQUEST,
@@ -54,7 +61,7 @@ class Login(APIView):
 
 
 class ChangePassword(APIView):
-    def put(self, request, *args, **kwargs):
+    def put(self, request, *args, **kwargs) -> Response:
         user = validator(request)
         old, new = request.data['old_password'], request.data['new_password']
         if not validate_password(new):
@@ -73,7 +80,7 @@ class ChangePassword(APIView):
 
 
 class UserInfo(APIView):
-    def get(self, request):
+    def get(self, request) -> Response:
         user = validator(request)
         res = response(request=request, data=user, status=status.HTTP_200_OK, message="ok")
         return Response(res)

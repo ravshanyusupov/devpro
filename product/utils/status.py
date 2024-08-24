@@ -9,3 +9,4 @@ wishlist_not_found = {"code": -1120, "message": "wishlist is not found"}
 new_password_too_simple = {"code": -1023, "message": "New password is too simple"}
 dont_match_both_password = {"code", -1010, "message", "New password must be different from the old password"}
 invalid_request_body = {"code": -1005, "message": "Invalid request body or username already exists or invalid correct phone number"}
+invalid_login_request = {"code": -1016, "message": "Invalid request body"}
